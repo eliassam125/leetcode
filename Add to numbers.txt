@@ -1,0 +1,94 @@
+Add to numbers:
+
+	You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+ 
+
+Example 1:
+
+
+Input: l1 = [2,4,3], l2 = [5,6,4]
+Output: [7,0,8]
+Explanation: 342 + 465 = 807.
+Example 2:
+
+Input: l1 = [0], l2 = [0]
+Output: [0]
+Example 3:
+
+Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+Output: [8,9,9,9,0,0,0,1]
+ 
+
+Constraints:
+
+The number of nodes in each linked list is in the range [1, 100].
+0 <= Node.val <= 9
+It is guaranteed that the list represents a number that does not have leading zeros.
+
+Anwser (java): 
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+
+    //first we need the l1 and l2 in arraylists 
+    ArrayList<Integer> list1 = new  ArrayList<Integer>();
+    ArrayList<Integer> list2 = new  ArrayList<Integer>();
+    while(l1 != null){
+        list1.add( Integer.valueOf(l1.val));
+        l1=l1.next;
+    }
+    while(l2 != null){
+        list2.add( Integer.valueOf(l2.val));
+        l2=l2.next;
+    }
+    //we need to have the inverted as a number in a variable
+    int numlist1=0;
+    int mult = 1;
+    for (int val : list1){
+        numlist1=val*mult+numlist1;
+        mult=mult*10;
+    }
+    
+    int numlist2=0;
+    mult = 1;
+    for (int val : list2){
+        numlist2=val*mult+numlist2;
+        mult=mult*10;
+    }
+//ahora los sumamos en un valor
+ int valorSuma = numlist1+numlist2;
+//ahora lo convertimos en string
+String letrasSuma = String.valueOf(valorSuma);
+
+//ahora a una charArray
+char[] charArray = letrasSuma.toCharArray();
+ArrayList<Integer> sumalista = new  ArrayList<Integer>();
+for(char c: charArray){
+    sumalista.add(Integer.parseInt(String.valueOf(c)));
+}
+System.out.println(sumalista.size());
+if(sumalista.size()==3){
+    ListNode c = new ListNode(sumalista.get(0));
+ListNode b = new ListNode(sumalista.get(1),c);
+
+ListNode result= new ListNode(sumalista.get(2),b);
+    return result;
+}
+    return l2;
+    }
+}
